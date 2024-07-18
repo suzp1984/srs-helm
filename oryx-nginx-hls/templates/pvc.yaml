@@ -1,0 +1,63 @@
+{{- if (.Values.persistence.enabled) }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srs-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: srs-disk-storage
+  capacity:
+    storage: {{ .Values.persistence.storage }}
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: {{ .Values.persistence.path }}
+    type: DirectoryOrCreate
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: srs-pv-claim
+spec:
+  storageClassName: srs-disk-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistence.storage }}
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hls-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: hls-disk-storage
+  capacity:
+    storage: {{ .Values.persistence.hlsStorage }}
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: {{ .Values.persistence.hlsPath }}
+    type: DirectoryOrCreate
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hls-pv-claim
+spec:
+  storageClassName: hls-disk-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistence.hlsStorage }}
+{{- end }}
