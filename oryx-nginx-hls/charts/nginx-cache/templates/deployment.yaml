@@ -72,6 +72,8 @@ spec:
             - name: ORYX_SERVER_PORT
               value: {{ .Values.global.oryxHostPort | quote }}
             {{- end }}
+            - name: K8S_NAMESPACE
+              value: {{ .Release.Namespace }}
       volumes:
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
