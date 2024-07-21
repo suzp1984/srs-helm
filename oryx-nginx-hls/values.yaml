@@ -122,4 +122,3 @@ affinity: {}
 
 global:
   oryxHostName: oryx-host-name
-  oryxHostPort: "2080" # must be same value of service.value

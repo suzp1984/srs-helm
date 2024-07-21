@@ -57,23 +57,13 @@ spec:
               mountPath: /etc/nginx/html/index.html
               subPath: index.html
             - name: cache-volume
-              mountPath: /data/nginx-cache
+              mountPath: {{ .Values.nginxCachePath }}
           env:
             # Overwrite the config by conf.
             {{- range $key, $value := .Values.conf }}
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
-            {{- if .Values.global.oryxHostName }}
-            - name: ORYX_SERVER
-              value: {{ .Values.global.oryxHostName }}
-            {{- end }}
-            {{- if .Values.global.oryxHostPort }}
-            - name: ORYX_SERVER_PORT
-              value: {{ .Values.global.oryxHostPort | quote }}
-            {{- end }}
-            - name: K8S_NAMESPACE
-              value: {{ .Release.Namespace }}
       volumes:
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
