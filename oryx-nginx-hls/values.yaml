@@ -20,6 +20,12 @@ replicaCount: 1
 # See https://github.com/ossrs/srs/blob/develop/trunk/conf/full.conf
 conf:
   SRS_LOG_TANK: "console"
+  # below four confs used to force HLS high performance and HLS Low Latency
+  SRS_VHOST_HLS_HLS_FRAGMENT: 2
+  SRS_VHOST_HLS_HLS_WINDOW: 16
+  SRS_VHOST_HLS_HLS_CTX: "off"
+  SRS_VHOST_HLS_HLS_TS_CTX: "off"
+  # above four confs used to force HLS high performance and HLS Low Latency
 
 # The environment variables to set in the container.
 # See https://github.com/ossrs/srs/blob/develop/trunk/conf/full.conf
