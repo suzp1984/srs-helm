@@ -24,7 +24,7 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "v5.15.15"
+appVersion: "5.15.20"
 
 home: https://helm.ossrs.io/stable
 icon: https://ossrs.io/lts/en-us/img/srs-220x234.png
