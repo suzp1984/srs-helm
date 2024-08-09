@@ -21,9 +21,13 @@ spec:
         {{- include "oryx-nginx-hls.selectorLabels" . | nindent 8 }}
     spec:
       volumes:
-        - name: srs-pv-storage
+        - name: oryx-pv-storage
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: srs-pv-claim
+            claimName: oryx-pv-claim
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -35,7 +39,7 @@ spec:
         - name: {{ .Chart.Name }}
           volumeMounts:
             - mountPath: "/data"
-              name: srs-pv-storage
+              name: oryx-pv-storage
               {{- if .Values.persistence.subPath }}
               subPath: {{ .Values.persistence.subPath | quote }}
               {{- end }}
@@ -103,11 +107,11 @@ spec:
               value: "on"
           livenessProbe:
             httpGet:
-              path: /
+              path: /terraform/v1/mgmt/versions
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /terraform/v1/mgmt/versions
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
