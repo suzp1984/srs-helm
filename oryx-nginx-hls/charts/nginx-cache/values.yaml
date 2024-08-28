@@ -17,7 +17,6 @@ fullnameOverride: ""
 # The configuration for nginx cach.
 # must have SRS_M3U8_EXPIRE, SRS_TS_EXPIRE
 conf:
-  SRS_M3U8_EXPIRE: 10
   SRS_TS_EXPIRE: 3600
 
 serviceAccount:

@@ -64,6 +64,10 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
+            {{- if .Values.global.hlsFragment }}
+            - name: SRS_M3U8_EXPIRE
+              value: {{ .Values.global.hlsFragment | quote }}
+            {{- end }}
       volumes:
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}

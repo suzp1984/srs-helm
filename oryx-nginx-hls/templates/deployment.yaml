@@ -73,6 +73,10 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
+            {{- if .Values.global.hlsFragment }}
+            - name: SRS_VHOST_HLS_HLS_FRAGMENT
+              value: {{ .Values.global.hlsFragment | quote }}
+            {{- end }}
             # Overwrite the config by env.
             {{- range .Values.env }}
             - name: {{ .name }}

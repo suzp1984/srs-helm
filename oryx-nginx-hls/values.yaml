@@ -21,7 +21,6 @@ replicaCount: 1
 conf:
   SRS_LOG_TANK: "console"
   # below four confs used to force HLS high performance and HLS Low Latency
-  SRS_VHOST_HLS_HLS_FRAGMENT: 2
   SRS_VHOST_HLS_HLS_WINDOW: 16
   SRS_VHOST_HLS_HLS_CTX: "off"
   SRS_VHOST_HLS_HLS_TS_CTX: "off"
@@ -130,3 +129,4 @@ affinity: {}
 
 global:
   oryxHostName: oryx-host-name
+  hlsFragment: 2
