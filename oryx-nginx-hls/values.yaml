@@ -20,8 +20,10 @@ replicaCount: 1
 # See https://github.com/ossrs/srs/blob/develop/trunk/conf/full.conf
 conf:
   SRS_LOG_TANK: "console"
-  # below four confs used to force HLS high performance and HLS Low Latency
-  SRS_VHOST_HLS_HLS_WINDOW: 16
+  # check the global value hlsFragment which control the duration of one ts segment.
+  # HLS_WINDOW is the max media duration in m3u8 playlist, and is also the max video latency.
+  SRS_VHOST_HLS_HLS_WINDOW: 10
+  # HLS_CTX and HLS_TS_CTX must be off for nginx edge, they will make the nginx cache missed.
   SRS_VHOST_HLS_HLS_CTX: "off"
   SRS_VHOST_HLS_HLS_TS_CTX: "off"
   # above four confs used to force HLS high performance and HLS Low Latency
@@ -129,4 +131,6 @@ affinity: {}
 
 global:
   oryxHostName: oryx-host-name
+  # hlsFragment which control the duration of one ts segment.
+  # which must be equal or greater then the SRS_M3U8_EXPIRE in nginx-cache pod.
   hlsFragment: 2
