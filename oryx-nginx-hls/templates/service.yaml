@@ -31,5 +31,13 @@ spec:
       port: {{ .Values.service.rtc }}
       targetPort: 8000
       protocol: UDP
+    - name: rtc-over-tcp
+      port: {{ .Values.service.rtc }}
+      targetPort: 8000
+      protocol: TCP
+    - name: http-api
+      port: {{ .Values.service.httpApi }}
+      targetPort: 1985
+      protocol: TCP
   selector:
     {{- include "oryx-nginx-hls.selectorLabels" . | nindent 4 }}

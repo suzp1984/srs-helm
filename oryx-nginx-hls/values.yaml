@@ -27,7 +27,12 @@ conf:
   SRS_VHOST_HLS_HLS_CTX: "off"
   SRS_VHOST_HLS_HLS_TS_CTX: "off"
   # above four confs used to force HLS high performance and HLS Low Latency
-
+  # RTC over TCP only
+  SRS_RTC_SERVER_PROTOCOL: "tcp"
+  SRS_RTC_SERVER_TCP_ENABLED: "on"
+  SRS_HTTP_API_LISTEN: "1985"
+  # SRS_RTC_SERVER_CANDIDATE: ""
+  # 
 # The environment variables to set in the container.
 # See https://github.com/ossrs/srs/blob/develop/trunk/conf/full.conf
 env: []
@@ -38,7 +43,8 @@ env: []
 # See https://ossrs.io/lts/en-us/docs/v5/doc/webrtc#config-candidate for details.
 # Note that if this value is not empty, it will override the SRS_RTC_SERVER_CANDIDATE value in
 # both the {{.Values.conf}} and {{.Values.env}}.
-candidate: ""
+# config candidate to your services's public ip.
+candidate: "127.0.0.1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -87,6 +93,7 @@ service:
   https: 2443
   srt: 10080
   rtc: 8000
+  httpApi: 1985
 
 ingress:
   enabled: false
