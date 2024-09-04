@@ -66,6 +66,9 @@ spec:
             - name: rtc
               containerPort: 8000
               protocol: UDP
+            - name: rtc-over-tcp
+              containerPort: 8000
+              protocol: TCP
           env:
             # The general default config.
             - name: SRS_PLATFORM

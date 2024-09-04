@@ -27,7 +27,19 @@ conf:
   SRS_VHOST_HLS_HLS_CTX: "off"
   SRS_VHOST_HLS_HLS_TS_CTX: "off"
   # above four confs used to force HLS high performance and HLS Low Latency
-
+  # config RTC Port protocol: "tcp", "udp", "all"
+  SRS_RTC_SERVER_PROTOCOL: "tcp"
+  # Wether to enable WebRTC over TCP.
+  # if you want to config RTC over TCP only
+  #   SRS_RTC_SERVER_PROTOCOL: "tcp"
+  #   SRS_RTC_SERVER_TCP_ENABLED: "on"
+  # if you want to config RTC over both TCP and UDP
+  #   SRS_RTC_SERVER_PROTOCOL: "all"
+  #   SRS_RTC_SERVER_TCP_ENABLED: "on"
+  # if you want to config RTC over UDP only
+  #   SRS_RTC_SERVER_PROTOCOL: "udp"
+  #   SRS_RTC_SERVER_TCP_ENABLED: "off"
+  SRS_RTC_SERVER_TCP_ENABLED: "on"
 # The environment variables to set in the container.
 # See https://github.com/ossrs/srs/blob/develop/trunk/conf/full.conf
 env: []
@@ -38,6 +50,8 @@ env: []
 # See https://ossrs.io/lts/en-us/docs/v5/doc/webrtc#config-candidate for details.
 # Note that if this value is not empty, it will override the SRS_RTC_SERVER_CANDIDATE value in
 # both the {{.Values.conf}} and {{.Values.env}}.
+# apply a public static IP, binding it to the {{ .Values.global.oryxSvcTcp }} service.
+# config candidate to this public static IP.
 candidate: ""
 
 imagePullSecrets: []
@@ -70,7 +84,7 @@ securityContext: {}
 ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 persistence:
   ## @param persistence.enabled Enable persistence.
-  enabled: true
+  enabled: false
   ## @param persistence.className the storageClassName.
   className: "standard"
   ## @param persistence.path The path of the hostPath.
@@ -130,7 +144,8 @@ tolerations: []
 affinity: {}
 
 global:
-  oryxHostName: oryx-host-name
+  oryxSvcTcp: oryx-svc-tcp
+  oryxSvcUdp: oryx-svc-udp
   # hlsFragment which control the duration of one ts segment.
   # which must be equal or greater then the SRS_M3U8_EXPIRE in nginx-cache pod.
   hlsFragment: 2
