@@ -85,6 +85,10 @@ spec:
               value: {{ .Values.service.redisName }}
             - name: SRS_HOST
               value: {{ .Values.service.srsName }}
+            - name: SRS_PROXY_HOST
+              value: {{ .Values.service.proxyName }}
+            - name: SRS_PROXY_HTTP_PORT
+              value: {{ .Values.service.srsHttp | quote}}
           livenessProbe:
             httpGet:
               path: /terraform/v1/host/versions

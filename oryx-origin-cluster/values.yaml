@@ -5,7 +5,7 @@
 image:
   oryxRepository: zpcat/oryx
   oryxPullPolicy: Always
-  oryxTag: "5.14.cluster"
+  oryxTag: "5.14.3.cluster"
   redisRepository: redis
   redisPullPolicy: IfNotPresent
   redisTag: "5.0"
