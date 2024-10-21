@@ -5,7 +5,7 @@
 image:
   oryxRepository: zpcat/oryx
   oryxPullPolicy: Always
-  oryxTag: "5.14.3.cluster"
+  oryxTag: "5.14.5.cluster"
   redisRepository: redis
   redisPullPolicy: IfNotPresent
   redisTag: "5.0"
@@ -45,6 +45,13 @@ autoscaling:
   maxReplicasProxy: 4
   targetCPUUtilizationPercentageProxy: 70
   targetMemoryUtilizationPercentageProxy: 70
+
+persistence:
+  enabled: true
+  className: "standard"
+  redisStorage: 1Gi
+  oryxStorage: 9Gi
+  accessMode: ReadWriteOnce
 
 service:
   redisName: "redis"

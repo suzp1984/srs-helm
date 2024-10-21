@@ -37,15 +37,15 @@ spec:
             sed 's/device_id .*;/device_id origin-'$ordinal';/g' /data/srs/conf/srs.origin.conf > /data/srs/conf/srs.conf
           volumeMounts:
             - mountPath: "/data"
-              name: cache-volume
+              name: data-storage
             - mountPath: "/data/srs/conf/srs.release.conf"
-              name: config-volume
+              name: config-storage
               subPath: srs.release.conf
             - mountPath: "/data/srs/conf/srs.vhost.conf"
-              name: config-volume
+              name: config-storage
               subPath: srs.vhost.conf
             - mountPath: "/data/srs/conf/srs.origin.conf"
-              name: config-volume
+              name: config-storage
               subPath: srs.origin.conf
         - name: wait-proxy
           image: "curlimages/curl:8.10.1"
@@ -116,20 +116,20 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: "/data"
-              name: cache-volume
+              name: data-storage
             - mountPath: "/data/srs/conf/srs.release.conf"
-              name: config-volume
+              name: config-storage
               subPath: srs.release.conf
             - mountPath: "/data/srs/conf/srs.vhost.conf"
-              name: config-volume
+              name: config-storage
               subPath: srs.vhost.conf
             - mountPath: "/data/srs/conf/srs.origin.conf"
-              name: config-volume
+              name: config-storage
               subPath: srs.origin.conf
       volumes:
-        - name: cache-volume
+        - name: data-storage
           emptyDir: {}
-        - name: config-volume
+        - name: config-storage
           configMap:
             name: configs
       {{- with .Values.nodeSelector }}

@@ -5,6 +5,8 @@ metadata:
   labels:
     {{- include "oryx-origin-cluster.redisLabels" . | nindent 4 }}
 spec:
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "oryx-origin-cluster.redisSelectorLabels" . | nindent 6 }}
@@ -63,15 +65,20 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: "/data"
-              name: cache-volume
+            - mountPath: "/data/redis"
+              name: redis-storage
             - mountPath: "/data/redis/conf/redis.conf"
-              name: config-volume
+              name: config-storage
               subPath: redis.conf
       volumes:
-        - name: cache-volume
+        - name: redis-storage
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: redis-pv-claim
+        {{- else }}
           emptyDir: {}
-        - name: config-volume
+        {{- end }}
+        - name: config-storage
           configMap:
             name: configs
       {{- with .Values.nodeSelector }}
