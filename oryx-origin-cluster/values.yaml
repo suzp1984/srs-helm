@@ -4,7 +4,7 @@
 
 image:
   oryxRepository: zpcat/oryx
-  oryxPullPolicy: Always
+  oryxPullPolicy: IfNotPresent
   oryxTag: "5.14.5.cluster"
   redisRepository: redis
   redisPullPolicy: IfNotPresent
@@ -13,8 +13,8 @@ image:
   srsPullPolicy: IfNotPresent
   srsTag: "7-dev"
   srsProxyRepository: zpcat/srs-proxy
-  srsProxyPullPolicy: Always
-  srsProxyTag: "latest"
+  srsProxyPullPolicy: IfNotPresent
+  srsProxyTag: "1"
 
 srsReplicas: 3
 
