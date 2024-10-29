@@ -47,7 +47,7 @@ autoscaling:
   targetMemoryUtilizationPercentageProxy: 70
 
 persistence:
-  enabled: true
+  enabled: false
   className: "standard"
   redisStorage: 1Gi
   oryxStorage: 9Gi
